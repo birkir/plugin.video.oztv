@@ -10,10 +10,19 @@
 #       Add context menu
 #       Content type for series, episodes or movies with fanart
 
-import xbmcaddon, xbmcplugin, xbmcgui, xbmc
+import urllib, urllib2, re, xbmcaddon, xbmcplugin, xbmcgui, xbmc
 from oz import *
 
-def getMenu():
+# Plugin constants 
+__addonid__   = "plugin.video.oztv"
+__addon__     = xbmcaddon.Addon(id=__addonid__)
+__language__  = __addon__.getLocalizedString
+
+action_key = None
+action_value = None
+name = None
+
+def showMenu():
 	items = []
 	items.append([0, 'Now', 'schedule', ''])
 	items.append([1, 'Channels', 'channels', ''])
@@ -53,7 +62,7 @@ def showVod(type):
 			series = item['series']
 			name = series['title']
 			still = parseStill(series)
-			addMenuItem(name.encode('utf-8').strip(), 'vod_series', item['id'], still)
+			addMenuItem(name.encode('utf-8').strip(), 'vod_series', series['id'], still)
 		else:
 			content = item['content']
 			offering = item['offerings'][0]
@@ -70,13 +79,14 @@ def showVodSeries(series):
 		still = parseStill(content)
 		addMenuItem(name.encode('utf-8').strip(), 'play_offering', offering['organization']+','+offering['key'], still)
 
-def playOffering(data):
+def playOffering(param):
 	data = param.split(',')
 	offering = getOffering(data[0], data[1])
 	if 'message' in offering:
 		showDialog(offering['message'])
 	else:
-		xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(offering['url'])
+		#xbmc.PlayerCDVDInputStreamFFmpeg
+		xbmc.Player().play(offering['url'])
 
 def parseName(content):
 	name = content['title'] + ' '
@@ -98,7 +108,7 @@ def parseStill(item):
 	if 'stills' in item:
 		for still in item['stills']:
 			return 'https://oz-img.global.ssl.fastly.net' + still
-	return False
+	return ''
 
 def extractChannel(channels, channel):
 	for chan in channels:
@@ -131,7 +141,7 @@ def get_params():
 
 def addMenuItem(name, action_key, action_value, iconimage='DefaultFolder.png'):
 	is_folder = True
-	if action_key == 'playOffering':
+	if action_key == 'play_offering':
 		is_folder = False
 	u=sys.argv[0]+"?action_key="+urllib.quote_plus(action_key)+"&action_value="+str(action_value)+"&name="+urllib.quote_plus(name)
 	liz=xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage='')

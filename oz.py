@@ -1,8 +1,8 @@
 # coding: utf-8
 #!/usr/bin/env python
-import urllib2, requests
+import urllib, urllib2, re, xbmcaddon, xbmcplugin, xbmcgui, xbmc, base64
+import requests
 import simplejson as json
-from requests.auth import HTTPBasicAuth
 
 waypoint = 'https://api.oz.com/v1/'
 user_agent = 'OZDroidz/1.5.0.3 (XBMC; Android 4.4.2)'
@@ -89,12 +89,3 @@ def getVodProviders():
 
 def getFollowing():
 	return request('user/following')
-
-def searchCollection():
-	return
-
-def searchVod():
-	return
-
-def parseName():
-	return
