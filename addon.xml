@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.oztv"
+       name="OZ TV"
+       version="1.0.0"
+       provider-name="gudjonsen">
+  <requires>
+    <import addon="xbmc.python" version="2.0"/>
+    <import addon="script.module.requests" version="2.1.0"/>
+    <import addon="script.module.simplejson" version="2.0.10"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>audio video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Port of the popular OZ app for android and ios devices.</summary>
+    <description lang="en">Author: Birkir Gudjonsson (birkir.gudjonsson@gmail.com)</description>
+    <platform>all</platform>
+  </extension>
+</addon>
