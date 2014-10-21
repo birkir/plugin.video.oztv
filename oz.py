@@ -1,6 +1,6 @@
 # coding: utf-8
 #!/usr/bin/env python
-import urllib, urllib2, re, xbmcaddon, xbmcplugin, xbmcgui, xbmc, base64
+import urllib, urllib2, re, xbmcaddon, xbmcplugin, xbmcgui, xbmc, base64, os
 import requests
 import simplejson as json
 
@@ -26,14 +26,14 @@ def request(path, username = '', password = ''):
 	return json.JSONDecoder('utf8').decode(response.text)
 
 def writeAuthToken(token):
-	f = open('token.txt', 'w')
+	f = open(os.path.join(xbmc.translatePath( "special://profile" ), 'token.txt'),'w');
 	f.write(token)
 	f.close()
 
 def readAuthToken():
 	token = ''
 	try:
-		f = open('token.txt', 'r')
+		f = open(os.path.join(xbmc.translatePath( "special://profile" ), 'token.txt'),'r');
 		token = f.readline()
 		f.close()
 	except IOError:
