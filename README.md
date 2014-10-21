@@ -1,13 +1,13 @@
 plugin.video.oztv
 =================
 
-Port of the popular OZ app for Android and iOS devices
+XBMC Port of the popular OZ app for Android and iOS devices
 
 
 Requirements
 ------------
-[http://mirrors.xbmc.org/addons/frodo/script.module.simplejson/script.module.simplejson-3.3.0.zip](script.module.simplejson)
-[http://mirrors.xbmc.org/addons/frodo/script.module.requests/script.module.requests-2.3.0.zip](script.module.requests)
+* [script.module.simplejson](http://mirrors.xbmc.org/addons/frodo/script.module.simplejson/script.module.simplejson-3.3.0.zip)
+* [script.module.requests](http://mirrors.xbmc.org/addons/frodo/script.module.requests/script.module.requests-2.3.0.zip)
 
 
 Installation
