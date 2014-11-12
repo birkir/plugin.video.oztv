@@ -54,8 +54,20 @@ def showChannels():
 		logo = channel['media']['icon']
 		addMenuItem(name, 'play_offering', offering['organization']+','+offering['key'], logo)
 
-def showVod(type):
+def showVod(params):
+	params = params.split(',')
+	type = params[0]
 	page = 0
+	if len(params) > 1:
+		page = int(params[1])
+
+	addMenuItem(' # Home', '', '')
+
+	if page > 0:
+		addMenuItem(' < Previous page'.encode('utf-8'), 'vod', type+','+str(page - 1))
+
+	addMenuItem(' > Next page'.encode('utf-8'), 'vod', type+','+str(page + 1))
+
 	items = getVodWithType(type, page)
 	for item in items:
 		if 'series' in item:
@@ -70,6 +82,8 @@ def showVod(type):
 			still = parseStill(content)
 			addMenuItem(name.encode('utf-8').strip(), 'play_offering', offering['organization']+','+offering['key'], still)
 
+
+
 def showVodSeries(series):
 	episodes = getVodSeriesEpisodes(series)
 	for episode in episodes:
@@ -79,13 +93,13 @@ def showVodSeries(series):
 		still = parseStill(content)
 		addMenuItem(name.encode('utf-8').strip(), 'play_offering', offering['organization']+','+offering['key'], still)
 
+
 def playOffering(param):
 	data = param.split(',')
 	offering = getOffering(data[0], data[1])
 	if 'message' in offering:
 		showDialog(offering['message'])
 	else:
-		#xbmc.PlayerCDVDInputStreamFFmpeg
 		xbmc.Player().play(offering['url'])
 
 def parseName(content):
@@ -107,19 +121,13 @@ def parseName(content):
 def parseStill(item):
 	if 'stills' in item:
 		for still in item['stills']:
-			return 'https://oz-img.global.ssl.fastly.net' + still
+			return 'https://oz-img.global.ssl.fastly.net' + still + '?width=340'
 	return ''
 
 def extractChannel(channels, channel):
 	for chan in channels:
 		if chan['key'] == channel:
 			return chan
-
-def addMenuItem(foo, bar, baz, abba):
-	print(foo+': ' + bar)
-
-def showDialog(msg):
-	print 'error: ' + str(msg)
 
 def get_params():
 	param=[]
