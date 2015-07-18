@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.oztv"
        name="OZ TV"
-       version="1.0.0"
+       version="1.0.2"
        provider-name="gudjonsen">
   <requires>
-    <import addon="xbmc.python" version="2.0"/>
+    <import addon="xbmc.python" version="2.1"/>
     <import addon="script.module.requests" version="2.1.0"/>
     <import addon="script.module.simplejson" version="2.0.10"/>
   </requires>
